@@ -4,6 +4,32 @@ const FINEX_CACHE = CacheService.getScriptCache();
 const FINEX_CACHE_MAX_AGE = 6*60*60; // 6 Hours
 
 /**
+ * Добавляет в главное меню таблицы меню обновления значений служебной ячейки
+ * (для обновления вычислнений функций, ссылающихся на эту ячейку)
+ **/
+function onOpen() {
+  var ui = SpreadsheetApp.getUi();
+  ui.createMenu('Finex')
+      .addItem('Обновить котировки', 'refresh')
+      .addToUi();
+}
+
+function _convertRangeToOneCell(range){
+  if (range == null) return;
+  if (range.getA1Notation == undefined) return;   // range should be the instance of Range
+  return range.getCell(1, 1);
+}
+
+function refresh() {
+  const updateDateRange = _convertRangeToOneCell(SpreadsheetApp.getActiveSpreadsheet().getRangeByName('UPDATE_DATE'));
+  if (updateDateRange != null) {
+    updateDateRange.setValue(new Date());
+  } else {
+    SpreadsheetApp.getUi().ui.alert('You should specify the named range "UPDATE_DATE" for using this function.');
+  }
+}
+
+/**
  * API: https://api.finex-etf.ru/v1/
  * Documentation: https://app.swaggerhub.com/apis-docs/wizard/Fonds/1.0.0
  */
