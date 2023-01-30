@@ -5,16 +5,7 @@ const FINEX_CACHE_MAX_AGE = 6*60*60; // 6 Hours
 
 /**
  * API: https://api.finex-etf.ru/v1/
- * NAV path: https://api.finex-etf.ru/v1/fonds/nav
- * 
  * Documentation: https://app.swaggerhub.com/apis-docs/wizard/Fonds/1.0.0
- * 
- * Permissions: https://t.me/c/1345818950/37242
- * 
- * [30.01.2023 17:26] Vladimir Kreyndel:
- * Используйте разумно, выкладывайте скрипты на здоровье.
- * https://api.finex-etf.ru/v1/fonds/
- * + Документация https://app.swaggerhub.com/apis-docs/wizard/Fonds/1.0.0
  */
 class FinexAPI {
   constructor() {
@@ -99,7 +90,7 @@ class FinexAPI {
    */
   getETFByTicker(ticker, ignoreCache = false) {
     const cached = this._getETFInfoFromCacheByTicker(ticker);
-    if (cached != null && !ignoreCache) {
+    if (cached != null && !ignoreCache) {
       return cached;
     }
 
@@ -124,7 +115,7 @@ class FinexAPI {
    * @customfunction
    */
   getAllETFs(isActive = null) {
-    // TODO: не придумал, как загружать из кеша все ETF, если они у нас там по отдельности лежат...
+    // TODO: не придумал, как загружать из кеша все ETF, если они у нас там по отдельности лежат... надо допилить
     if (typeof isActive == 'boolean') {
       isActive = ((isActive) ? 'true' : 'false');
     } else {
@@ -154,7 +145,7 @@ class FinexAPI {
    */
   getNAVs(ignoreCache = false) {
     const cached = this._getETFNavFromCache();
-    if (cached != null && !ignoreCache) {
+    if (cached != null && !ignoreCache) {
       return cached;
     }
 
@@ -227,13 +218,4 @@ function FINEX_getNAVCurrencyByTicker(ticker, dummy) {
   var nav = finexClient.getNAVByTicker(ticker);
   if (nav === null) return null;
   return nav.currency;
-}
-
-function test(){
-  const ignoreCache = false;
-  //FINEX_CACHE.remove("FINEX_NAV");
-  //var data = finexClient.getNAVs(ignoreCache);
-  //Logger.log(data);
-  var data = finexClient.getETFByTicker("FXRB", ignoreCache);
-  Logger.log(data);
 }
