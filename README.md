@@ -89,7 +89,4 @@ Finex разрешили использовать API "разумно", а та�
 
 Ссылка на сообщение Владимира Крейнделя в Telegram: https://t.me/c/1345818950/37242  
 
-> [30.01.2023 17:26] Vladimir Kreyndel:  
-> Используйте разумно, выкладывайте скрипты на здоровье.  
-> https://api.finex-etf.ru/v1/fonds/  
-> + Документация https://app.swaggerhub.com/apis-docs/wizard/Fonds/1.0.0
+![GAS Finex API permissions image](https://raw.githubusercontent.com/GrKoR/gas-finex-nav/master/images/permissions.png "GAS Finex API permissions image")
