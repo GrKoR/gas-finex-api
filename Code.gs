@@ -5,7 +5,16 @@ const FINEX_CACHE_MAX_AGE = 6*60*60; // 6 Hours
 
 /**
  * API: https://api.finex-etf.ru/v1/
- * NAV path: https://api.finex-etf.ru/v1/fonds/nav 
+ * NAV path: https://api.finex-etf.ru/v1/fonds/nav
+ * 
+ * Documentation: https://app.swaggerhub.com/apis-docs/wizard/Fonds/1.0.0
+ * 
+ * Permissions: https://t.me/c/1345818950/37242
+ * 
+ * [30.01.2023 17:26] Vladimir Kreyndel:
+ * Используйте разумно, выкладывайте скрипты на здоровье.
+ * https://api.finex-etf.ru/v1/fonds/
+ * + Документация https://app.swaggerhub.com/apis-docs/wizard/Fonds/1.0.0
  */
 class FinexAPI {
   constructor() {
