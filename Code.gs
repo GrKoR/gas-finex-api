@@ -14,14 +14,8 @@ function onOpen() {
       .addToUi();
 }
 
-function _convertRangeToOneCell(range){
-  if (range == null) return;
-  if (range.getA1Notation == undefined) return;   // range should be the instance of Range
-  return range.getCell(1, 1);
-}
-
 function refresh() {
-  const updateDateRange = _convertRangeToOneCell(SpreadsheetApp.getActiveSpreadsheet().getRangeByName('UPDATE_DATE'));
+  var updateDateRange = SpreadsheetApp.getActiveSpreadsheet().getRangeByName('UPDATE_DATE').getCell(1, 1);
   if (updateDateRange != null) {
     updateDateRange.setValue(new Date());
   } else {
