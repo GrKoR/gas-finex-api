@@ -1,4 +1,4 @@
-# gas-finex-nav
+# gas-finex-api
 Finex updates NAV for its own ETFs on the site using a non-public API. This Google Apps script provides functions for working with NAV from Finex.
 
 Скрипт написан для собственных нужд, потому что надоело искать и обновлять оценку стоимости акций `замороженных` фондов Finex.  
