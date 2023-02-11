@@ -10,7 +10,7 @@ Finex updates NAV for its own ETFs on the site using a non-public API. This Goog
 * Создать или открыть документ Google Spreadsheets http://drive.google.com
 * В меню `Tools` выбрать `Script Editor`
 * Дать проекту имя, например `FinexNAV`
-* Скопировать код из [Finex-API.gs](https://raw.githubusercontent.com/GrKoR/gas-finex-nav/master/Finex-API.gs) и заменить им дефолтный текст скрипта вашей таблицы.
+* Скопировать код из [Finex-API.gs](https://raw.githubusercontent.com/GrKoR/gas-finex-api/master/Finex-API.gs) и заменить им дефолтный текст скрипта вашей таблицы.
 * Сохранить скрипт
 
 На этом всё.   
