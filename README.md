@@ -10,12 +10,51 @@ Finex updates NAV for its own ETFs on the site using a non-public API. This Goog
 * Создать или открыть документ Google Spreadsheets http://drive.google.com
 * В меню `Tools` выбрать `Script Editor`
 * Дать проекту имя, например `FinexNAV`
-* Скопировать код из [Code.gs](https://raw.githubusercontent.com/GrKoR/gas-finex-nav/master/Code.gs) и заменить им дефолтный текст скрипта вашей таблицы.
+* Скопировать код из [Code.gs](https://raw.githubusercontent.com/GrKoR/gas-finex-nav/master/Finex-API.gs) и заменить им дефолтный текст скрипта вашей таблицы.
 * Сохранить скрипт
-* В документе Google Spreadsheets выбрать любую ненужную ячейку и присвоить ей имя `UPDATE_DATE` с помощью меню `Data`->`Named ranges`->`Add named range`. В эту ячейку по команде меню `Finex`->`Обновить котировки` вставляется текущая дата. Данная ячейка может использоваться в качестве необязательного параметра `dummy` любой функции для [принудительного обновления формул](https://stackoverflow.com/a/27656313).
-
 
 На этом всё.   
+
+## Обновления формул из меню
+По умолчанию таблицы Google очень редко обновляют значения формул, делающих запросы на внешние ресурсы. Если хочется в главном меню таблицы получить меню, с помощью которого можно будет принудительно обновлять данные котировок, то выполните написанное ниже.  
+
+### Добавление меню
+В скрипт нужно добавить код, создающий меню.  
+Откройте скрипт вашей таблицы (меню `Tools` -> `Script Editor`). В начало файла вставьте следующий код:  
+```javascript
+function onOpen() {
+  var ui = SpreadsheetApp.getUi();
+  ui.createMenu('Finex')
+      .addItem('Обновить котировки', 'refresh')
+      .addToUi();
+}
+
+function refresh() {
+  var updateDateRange = SpreadsheetApp.getActiveSpreadsheet().getRangeByName('UPDATE_DATE').getCell(1, 1);
+  if (updateDateRange != null) {
+    updateDateRange.setValue(new Date());
+  } else {
+    SpreadsheetApp.getUi().ui.alert('You should specify the named range "UPDATE_DATE" for using this function.');
+  }
+}
+```
+Сохраните скрипт. Вкладку с кодом можно закрывать.  
+
+Закройте таблицу и откройте заново. Это нужно, чтобы в главном меню отобразился пункт `Finex`.
+
+### Изменение формул
+В документе Google Spreadsheets выберите любую ненужную ячейку и присвоить ей имя `UPDATE_DATE` с помощью меню `Data`->`Named ranges`->`Add named range`. В эту ячейку по команде меню `Finex`->`Обновить котировки` будет вставляется текущая дата. Данная ячейка может использоваться в качестве необязательного параметра `dummy` любой функции для [принудительного обновления формул](https://stackoverflow.com/a/27656313).  
+
+Чтобы по команде из меню формулы `FINEX_xxx()` пересчитывались, нужно в каждую такую формулу добавить последним значением ссылку на созданный именованный диапазон.  
+Например, в ячейке A1 была формула:  
+```
+= FINEX_getNAVValueByTicker("FXUS")
+```
+Её следует изменить так:  
+```
+= FINEX_getNAVValueByTicker("FXUS"; UPDATE_DATE)
+```
+
 
 ## Возможности
 Теперь при работе с этим документом на всех листах будут доступны функции: 
