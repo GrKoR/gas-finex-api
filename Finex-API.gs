@@ -201,7 +201,9 @@ function FINEX_getNAVDateByTicker(ticker, dummy) {
   // see https://stackoverflow.com/a/27656313
   var nav = finexClient.getNAVByTicker(ticker);
   if (nav === null) return null;
-  return isoToDate(nav.date);
+  const result = new Date();
+  result.setTime(Date.parse(nav.date));
+  return result;
 }
 
 /**
